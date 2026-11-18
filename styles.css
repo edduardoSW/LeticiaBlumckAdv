@@ -1,0 +1,846 @@
+/* ==========================================================================
+   Blumck Advocacia - Design System Editorial & Contemporâneo
+   Inspirado na sofisticação minimalista, acolhedora e editorial de referência
+   ========================================================================== */
+
+:root {
+  /* Paleta Editorial: Papel, Tinta e Tons Institucionais */
+  --paper: #F3F1EC;
+  --paper2: #FAF9F6;
+  --card: #FFFFFF;
+  
+  --navy: #132238;
+  --royal: #1E3A63;
+  --cobalt: #2D5B94;
+  --cobalt-hover: #234774;
+  --steel: #8CA0B8;
+  --sky: #B6C9DD;
+  --powder: #E8EEF5;
+  
+  --ink: #1A2436;
+  --muted: #58667A;
+  --line: #DCE3EB;
+  --line-subtle: #E9EEF4;
+  
+  --gold: #C29F5D;
+  --gold-pale: #F5EFE3;
+
+  /* Bordas e Sombras Refinadas */
+  --r-xs: 2px;
+  --r-sm: 4px;
+  --r: 8px;
+  --r-lg: 14px;
+  --sh-sm: 0 1px 3px rgba(19, 34, 56, 0.05);
+  --sh: 0 8px 30px rgba(19, 34, 56, 0.08);
+  --sh-lg: 0 20px 50px rgba(19, 34, 56, 0.12);
+
+  /* Tipografia */
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --wrap: 1200px;
+}
+
+/* Base & Reset Visual */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background-color: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.65;
+  font-size: 16px;
+  position: relative;
+}
+
+/* Textura sutil de granulação de papel editorial */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9990;
+  opacity: 0.32;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+}
+
+/* Barra de progresso de leitura sutil no topo */
+#scrollProgressBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2.5px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--royal), var(--cobalt), var(--gold));
+  z-index: 10000;
+  transition: width 0.1s ease-out;
+}
+
+/* Tipografia Editorial */
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+h1 {
+  font-size: clamp(2.4rem, 5.2vw, 3.8rem);
+}
+
+h2 {
+  font-size: clamp(1.85rem, 3.6vw, 2.75rem);
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+p {
+  color: var(--muted);
+}
+
+em {
+  font-style: italic;
+  font-family: var(--serif);
+}
+
+/* Eyebrow / Super-título editorial */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--cobalt);
+  font-weight: 600;
+}
+
+/* Tags de credencial estilo editorial */
+.tag-editorial {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.32rem 0.75rem;
+  border: 1px solid var(--steel);
+  border-radius: var(--r-xs);
+  color: var(--royal);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
+}
+
+.tag-editorial:hover {
+  border-color: var(--cobalt);
+  background: #FFFFFF;
+}
+
+/* Botões com corte contemporâneo e refinado */
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.9rem;
+  border-radius: 3px;
+  background-color: var(--royal);
+  color: #FFFFFF !important;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  border: 1px solid var(--royal);
+  cursor: pointer;
+  box-shadow: var(--sh-sm);
+  transition: all 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.primary-button:hover {
+  background-color: var(--navy);
+  border-color: var(--navy);
+  transform: translateY(-2px);
+  box-shadow: var(--sh);
+  color: #FFFFFF !important;
+}
+
+.primary-button:active {
+  transform: translateY(0);
+}
+
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.9rem;
+  border-radius: 3px;
+  background-color: transparent;
+  color: var(--royal) !important;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  border: 1px solid var(--royal);
+  cursor: pointer;
+  transition: all 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.secondary-button:hover {
+  background-color: var(--royal);
+  color: #FFFFFF !important;
+  transform: translateY(-2px);
+  box-shadow: var(--sh);
+}
+
+.secondary-button:active {
+  transform: translateY(0);
+}
+
+/* Header Editorial Fixo com Blur */
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: rgba(243, 241, 236, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+  transition: all 0.3s ease;
+}
+
+.hdr.scrolled {
+  background: rgba(243, 241, 236, 0.98);
+  box-shadow: 0 4px 20px rgba(19, 34, 56, 0.04);
+}
+
+/* Links de Navegação com Indicador Delicado */
+.nav-link {
+  position: relative;
+  font-size: 0.88rem;
+  letter-spacing: 0.03em;
+  font-weight: 500;
+  color: var(--muted);
+  transition: color 0.2s ease;
+  padding: 0.4rem 0;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--royal);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1.5px;
+  background: var(--cobalt);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.25s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: scaleX(1);
+}
+
+/* Hero Section Editorial */
+.hero-editorial {
+  padding: 90px 0 110px;
+  background-color: var(--paper);
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .hero-editorial {
+    padding: 60px 0 80px;
+  }
+}
+
+/* Composição estilo galeria / snapshot */
+.snap-card {
+  background: #FFFFFF;
+  border: 1px solid var(--line);
+  padding: 1.75rem;
+  box-shadow: var(--sh);
+  border-radius: var(--r-sm);
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.snap-card:hover {
+  box-shadow: var(--sh-lg);
+}
+
+/* Itens clicáveis da Hero Card com transição refinada */
+.hero-quick-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 1rem;
+  background-color: var(--paper2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xs);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.hero-quick-link:hover {
+  background-color: var(--powder);
+  border-color: var(--cobalt);
+  transform: translateX(3px);
+}
+
+.hero-quick-link:hover span {
+  color: var(--royal);
+}
+
+.hero-quick-link:hover i {
+  color: var(--royal);
+  transform: translateX(2px);
+}
+
+/* Nota flutuante editorial */
+.editorial-note {
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 1rem 1.4rem;
+  box-shadow: var(--sh);
+  border-radius: var(--r-xs);
+  z-index: 10;
+  transition: transform 0.3s ease;
+}
+
+.editorial-note p {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--royal);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Faixa de Credenciais Giratória / Infinite Marquee Ribbon */
+.strip-ribbon {
+  background-color: var(--royal);
+  color: #FFFFFF;
+  padding: 1.15rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  overflow: hidden;
+}
+
+.marquee-content {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  animation: marquee-scroll-infinite 30s linear infinite;
+  will-change: transform;
+}
+
+.strip-ribbon:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll-infinite {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 2.2rem;
+  white-space: nowrap;
+  transition: transform 0.2s ease;
+}
+
+.marquee-item:hover {
+  transform: scale(1.05);
+}
+
+.marquee-bullet {
+  color: var(--sky);
+  opacity: 0.45;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+/* ==========================================================================
+   Carrossel de Especialidades (Cards de Atuação)
+   ========================================================================== */
+.carousel-container {
+  position: relative;
+  width: 100%;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 0.5rem 0.25rem 1.5rem;
+  cursor: grab;
+}
+
+.carousel-track:active {
+  cursor: grabbing;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .carousel-slide {
+    flex: 0 0 calc(50% - 0.75rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .carousel-slide {
+    flex: 0 0 calc(33.333% - 1rem);
+  }
+}
+
+/* Botões de controle do carrossel no estilo editorial */
+.carousel-control-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--r-xs);
+  background-color: var(--card);
+  border: 1px solid var(--line);
+  color: var(--royal);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--sh-sm);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.carousel-control-btn:hover {
+  background-color: var(--royal);
+  color: #FFFFFF;
+  border-color: var(--royal);
+  transform: translateY(-1.5px);
+  box-shadow: var(--sh);
+}
+
+.carousel-control-btn:active {
+  transform: translateY(0);
+}
+
+.carousel-control-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Indicadores / Pontos do carrossel */
+.carousel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--steel);
+  opacity: 0.35;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+
+.carousel-dot.active {
+  width: 20px;
+  border-radius: 3px;
+  background-color: var(--royal);
+  opacity: 1;
+}
+
+/* Cards de Serviços estilo .who */
+.service-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 2.2rem 2rem;
+  border-radius: var(--r-sm);
+  box-shadow: var(--sh-sm);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-card:hover {
+  border-color: var(--cobalt);
+  box-shadow: var(--sh);
+  transform: translateY(-3px);
+}
+
+.service-card .card-number {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--sky);
+  position: absolute;
+  top: 1.4rem;
+  right: 1.6rem;
+  user-select: none;
+}
+
+.service-card .icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r-xs);
+  background-color: var(--powder);
+  color: var(--royal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin-bottom: 1.4rem;
+  transition: all 0.25s ease;
+}
+
+.service-card:hover .icon-box {
+  background-color: var(--royal);
+  color: #FFFFFF;
+}
+
+/* Card Destacado (Auxílio-Acidente) */
+.service-card.featured {
+  border-color: var(--steel);
+  box-shadow: var(--sh);
+}
+
+.service-card.featured:hover {
+  border-color: var(--cobalt);
+}
+
+/* Lista de itens dentro do card com marcador refinado */
+.service-list {
+  list-style: none;
+  margin-top: 1.4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--line-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.service-list li {
+  font-size: 0.88rem;
+  color: var(--muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  line-height: 1.5;
+}
+
+.service-list li .bullet {
+  color: var(--cobalt);
+  font-size: 0.85rem;
+  line-height: 1.2;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Efeito de destaque ao navegar diretamente para um card específico */
+@keyframes highlight-pulse {
+  0%, 100% {
+    box-shadow: var(--sh);
+    border-color: var(--line);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(45, 91, 148, 0.25), var(--sh-lg);
+    border-color: var(--cobalt);
+  }
+}
+
+.card-highlight {
+  animation: highlight-pulse 2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   Selector no Estilo do Site (Custom Dropdown)
+   ========================================================================== */
+.custom-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.15rem;
+  background-color: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xs);
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--sh-sm);
+  transition: all 0.22s ease;
+  text-align: left;
+}
+
+.custom-select-trigger:hover {
+  border-color: var(--steel);
+}
+
+.custom-select-wrapper.open .custom-select-trigger,
+.custom-select-trigger:focus {
+  border-color: var(--cobalt);
+  box-shadow: 0 0 0 3px rgba(45, 91, 148, 0.12);
+  outline: none;
+}
+
+.custom-select-icon {
+  color: var(--royal);
+  font-size: 0.75rem;
+  transition: transform 0.25s ease;
+}
+
+.custom-select-wrapper.open .custom-select-icon {
+  transform: rotate(180deg);
+}
+
+.custom-select-dropdown {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  right: 0;
+  background-color: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xs);
+  box-shadow: var(--sh-lg);
+  z-index: 100;
+  max-height: 290px;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.2s;
+  padding: 0.35rem 0;
+}
+
+.custom-select-wrapper.open .custom-select-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.custom-select-dropdown::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-select-dropdown::-webkit-scrollbar-track {
+  background: var(--paper);
+}
+
+.custom-select-dropdown::-webkit-scrollbar-thumb {
+  background: var(--steel);
+  border-radius: 2px;
+}
+
+.custom-option {
+  padding: 0.72rem 1.15rem;
+  font-size: 0.9rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.custom-option:hover {
+  background-color: var(--powder);
+  color: var(--royal);
+  font-weight: 500;
+}
+
+.custom-option.selected {
+  background-color: var(--paper2);
+  color: var(--royal);
+  font-weight: 600;
+}
+
+.custom-option .check-icon {
+  color: var(--cobalt);
+  font-size: 0.75rem;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.custom-option.selected .check-icon {
+  opacity: 1;
+}
+
+/* FAQ Minimalista estilo Editorial */
+.faq-wrap {
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--line);
+  padding: 1.35rem 0;
+  transition: border-color 0.2s;
+}
+
+.faq-item:first-child {
+  border-top: 1px solid var(--line);
+}
+
+.faq-item summary {
+  cursor: pointer;
+  font-family: var(--serif);
+  font-size: 1.18rem;
+  font-weight: 400;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1.2rem;
+  color: var(--ink);
+  transition: color 0.2s;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary:hover {
+  color: var(--cobalt);
+}
+
+.faq-item summary .faq-toggle {
+  font-family: var(--sans);
+  font-size: 1.35rem;
+  font-weight: 300;
+  color: var(--cobalt);
+  line-height: 1;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.faq-item[open] summary .faq-toggle {
+  transform: rotate(45deg);
+}
+
+.faq-content {
+  margin-top: 0.9rem;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--muted);
+  max-width: 58ch;
+}
+
+/* Animações e Intersection Observer */
+.card-animated {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.card-animated.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Botão Flutuante do WhatsApp */
+.wa-float-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 56px;
+  height: 56px;
+  background-color: #25D366;
+  color: #FFFFFF;
+  border-radius: 50%;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  text-decoration: none;
+}
+
+.wa-float-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.45);
+}
+
+/* Redução de movimento para acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .card-animated {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .carousel-track {
+    scroll-behavior: auto !important;
+  }
+  .marquee-content {
+    animation: none !important;
+    transform: none !important;
+  }
+}

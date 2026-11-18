@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advocacia Previdenciária de Leticia Blumck | Garanta seu Benefício</title>
+    
+    <!-- Google Fonts: Playfair Display & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              paper: '#F3F1EC',
+              paper2: '#FAF9F6',
+              card: '#FFFFFF',
+              navy: '#132238',
+              royal: '#1E3A63',
+              cobalt: '#2D5B94',
+              steel: '#8CA0B8',
+              sky: '#B6C9DD',
+              powder: '#E8EEF5',
+              ink: '#1A2436',
+              muted: '#58667A',
+              line: '#DCE3EB',
+              gold: '#C29F5D',
+            },
+            fontFamily: {
+              serif: ['"Playfair Display"', 'Georgia', 'serif'],
+              sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            }
+          }
+        }
+      };
+    </script>
+    
+    <link rel="automacao" href="Workflowleticia.json">
+    <link rel="agendamento" href="n8n-integration.js">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-paper text-ink selection:bg-powder selection:text-royal">
+
+    <!-- Textura sutil de granulação editorial -->
+    <div class="grain"></div>
+
+    <!-- Barra de progresso de leitura no topo -->
+    <div id="scrollProgressBar"></div>
+
+    <!-- Header Editorial -->
+    <header class="hdr fixed w-full z-50">
+        <div class="max-w-[1200px] mx-auto px-6 sm:px-8 h-20 flex justify-between items-center">
+            <a href="#inicio" class="flex items-center space-x-4 group">
+                <img src="Logo_site.png" alt="Blumck Advocacia" class="h-14 sm:h-16 w-auto transition-opacity duration-200 group-hover:opacity-85">
+            </a>
+            
+            <nav class="hidden lg:flex space-x-8 font-medium text-ink items-center text-sm tracking-wide">
+                <a href="#inicio" class="nav-link">
+                    <span>Início</span>
+                </a>
+                <a href="#servicos" class="nav-link">
+                    <span>Especialidades</span>
+                </a>
+                <a href="#agendamento" class="primary-button text-xs py-2.5 px-6">Agendar Consulta</a>
+            </nav>
+
+            <div class="lg:hidden flex items-center gap-3">
+                <a href="#agendamento" class="primary-button text-xs py-2 px-4">Agendar</a>
+                <button id="mobileMenuToggle" class="text-royal text-xl p-2 hover:text-cobalt focus:outline-none transition-colors" aria-label="Toggle menu">
+                    <i class="fas fa-bars" id="menuIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Mobile Drawer -->
+        <div id="mobileMenu" class="lg:hidden hidden bg-paper border-b border-line shadow-lg transition-all duration-300">
+            <div class="container mx-auto px-6 py-6 flex flex-col space-y-4">
+                <a href="#inicio" class="text-ink font-serif text-xl py-3 border-b border-line/60 hover:text-royal transition-colors flex items-center justify-between" onclick="closeMobileMenu()">
+                    <span>Início</span>
+                    <i class="fas fa-arrow-right text-xs text-muted"></i>
+                </a>
+                <a href="#servicos" class="text-ink font-serif text-xl py-3 border-b border-line/60 hover:text-royal transition-colors flex items-center justify-between" onclick="closeMobileMenu()">
+                    <span>Especialidades</span>
+                    <i class="fas fa-arrow-right text-xs text-muted"></i>
+                </a>
+                <a href="#agendamento" class="primary-button mt-4 text-center justify-center" onclick="closeMobileMenu()">Agendar Consulta</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section Editorial -->
+    <section id="inicio" class="hero-editorial">
+        <div class="max-w-[1200px] mx-auto px-6 sm:px-8">
+            <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-16 items-center">
+                <!-- Coluna de Texto -->
+                <div>
+                    <div class="mb-5">
+                        <span class="eyebrow">
+                            <i class="fas fa-check-circle text-cobalt text-xs"></i>
+                            Todos os benefícios do INSS
+                        </span>
+                    </div>
+
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal text-ink leading-[1.15] mb-6 tracking-tight">
+                        Especialistas em <em class="text-royal italic">Direito Previdenciário</em>
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-muted mb-8 max-w-xl leading-relaxed font-normal">
+                        Teve seu benefício negado, sofreu um acidente ou quer garantir sua aposentadoria? Garantimos o benefício que você merece.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 mb-10">
+                        <a href="#agendamento" class="primary-button text-sm sm:text-base py-3.5 px-8">
+                            <i class="far fa-calendar-check"></i> Marcar Atendimento
+                        </a>
+                        <a href="#servicos" class="secondary-button text-sm sm:text-base py-3.5 px-8">
+                            Nossas Especialidades
+                        </a>
+                    </div>
+
+                    <!-- Credenciais / Tags em linha -->
+                    <div class="flex flex-wrap gap-2 pt-2 border-t border-line/60">
+                        <span class="tag-editorial">Auxílio-Acidente</span>
+                        <span class="tag-editorial">Aposentadorias</span>
+                        <span class="tag-editorial">Revisão de Benefício</span>
+                        <span class="tag-editorial">Atendimento Nacional</span>
+                    </div>
+                </div>
+
+                <!-- Coluna Visual: Composição Estilo Snapshot com Itens Clicáveis -->
+                <div class="relative">
+                    <div class="snap-card transform lg:-rotate-1 hover:rotate-0 transition-transform duration-500">
+                        <!-- Topo do Card -->
+                        <div class="flex items-center gap-4 mb-6 pb-5 border-b border-line">
+                            <div class="w-12 h-12 bg-powder text-royal rounded-sm flex items-center justify-center text-xl shrink-0">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-serif font-normal text-ink text-xl">Atendimento Humanizado</h3>
+                                <p class="text-muted text-xs tracking-wider uppercase font-medium">Focado na sua necessidade real.</p>
+                            </div>
+                        </div>
+
+                        <!-- Itens Clicáveis que Levam Diretamente ao Carrossel da Especialidade -->
+                        <div class="space-y-2.5 mb-6">
+                            <a href="#servicos" data-carousel-target="0" class="hero-quick-link group">
+                                <span class="text-ink font-medium text-sm transition-colors">Auxílio-Acidente</span>
+                                <i class="fas fa-chevron-right text-xs text-muted transition-all"></i>
+                            </a>
+                            <a href="#servicos" data-carousel-target="2" class="hero-quick-link group">
+                                <span class="text-ink font-medium text-sm transition-colors">Aposentadoria</span>
+                                <i class="fas fa-chevron-right text-xs text-muted transition-all"></i>
+                            </a>
+                            <a href="#servicos" data-carousel-target="12" class="hero-quick-link group">
+                                <span class="text-ink font-medium text-sm transition-colors">Revisão de Benefício</span>
+                                <i class="fas fa-chevron-right text-xs text-muted transition-all"></i>
+                            </a>
+                        </div>
+
+                        <!-- Botão no Card -->
+                        <div class="pt-2 text-center">
+                            <a href="#agendamento" class="primary-button w-full text-center justify-center text-sm py-3">
+                                <i class="far fa-calendar-check mr-2"></i> Agendar Agora
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Faixa de Credenciais Giratória / Marquee Contínuo -->
+    <section class="strip-ribbon overflow-hidden relative" aria-label="Credenciais e Garantias">
+        <div class="marquee-track">
+            <!-- Bloco 1 -->
+            <div class="marquee-content">
+                <div class="marquee-item">
+                    <i class="fas fa-shield-halved text-sky text-base"></i>
+                    <span class="font-medium text-xs sm:text-sm tracking-wider uppercase text-white/90">Segurança Jurídica</span>
+                </div>
+                <span class="marquee-bullet">·</span>
+                <div class="marquee-item">
+                    <i class="fas fa-award text-sky text-base"></i>
+                    <span class="font-medium text-xs sm:text-sm tracking-wider uppercase text-white/90">Especialistas OAB</span>
+                </div>
+                <span class="marquee-bullet">·</span>
+                <div class="marquee-item">
+                    <i class="fas fa-handshake text-sky text-base"></i>
+                    <span class="font-medium text-xs sm:text-sm tracking-wider uppercase text-white/90">Atendimento Transparente</span>
+                </div>
+                <span class="marquee-bullet">·</span>
+                <div class="marquee-item">
+                    <i class="fas fa-gavel text-sky text-base"></i>
+                    <span class="font-medium text-xs sm:text-sm tracking-wider uppercase text-white/90">Alta Taxa de Sucesso</span>
+                </div>
+                <span class="marquee-bullet">·</span>
+                <div class="marquee-item">
+                    <i class="fas fa-shield-halved text-sky text-base"></i>
+                    <span class="font-medium text-xs sm:text-sm tracking-wider uppercase text-white/90">Segurança Jurídica</span>
+                </div>
+                <span class="marquee-bullet">·</span>
+                <div class="marquee-item">
+                    <i class="fas fa-award text-sky text-base"></i>
+                    <span class="font-medium text-xs sm:text-sm tracking-wider uppercase text-white/90">Especialistas OAB</span>
+                </div>
+                <span class="marquee-bullet">·</span>
+                <div class="marquee-item">
+                    <i class="fas fa-handshake text-sky text-base"></i>
+                    <span class="font-medium text-xs sm:text-sm tracking-wider uppercase text-white/90">Atendimento Transparente</span>
+                </div>
+                <span class="marquee-bullet">·</span>
+                <div class="marquee-item">
+                    <i class="fas fa-gavel text-sky text-base"></i>
+                    <span class="font-medium text-xs sm:text-sm tracking-wider uppercase text-white/90">Alta Taxa de Sucesso</span>
+                </div>
+                <span class="marquee-bullet">·</span>
+            </div>
+
+            <!-- Bloco 2 (Gêmeo para loop contínuo e infinito) -->
+            <div class="marquee-content" aria-hidden="true">
+                <div class="marquee-item">
+                    <i class="fas fa-shield-halved text-sky text-base"></i>
+                    <span class="font-medium text-xs sm:text-sm tracking-wider uppercase text-white/90">Segurança Jurídica</span>
+                </div>
+                <span class="marquee-bullet">·</span>
+                <div class="marquee-item">
+                    <i class="fas fa-award text-sky text-base"></i>
+                    <span class="font-medium text-xs sm:text-sm tracking-wider uppercase text-white/90">Especialistas OAB</span>
+                </div>
+                <span class="marquee-bullet">·</span>
+                <div class="marquee-item">
+                    <i class="fas fa-handshake text-sky text-base"></i>
+                    <span class="font-medium text-xs sm:text-sm tracking-wider uppercase text-white/90">Atendimento Transparente</span>
+                </div>
+                <span class="marquee-bullet">·</span>
+                <div class="marquee-item">
+                    <i class="fas fa-gavel text-sky text-base"></i>
+                    <span class="font-medium text-xs sm:text-sm tracking-wider uppercase text-white/90">Alta Taxa de Sucesso</span>
+                </div>
+                <span class="marquee-bullet">·</span>
+                <div class="marquee-item">
+                    <i class="fas fa-shield-halved text-sky text-base"></i>
+                    <span class="font-medium text-xs sm:text-sm tracking-wider uppercase text-white/90">Segurança Jurídica</span>
+                </div>
+                <span class="marquee-bullet">·</span>
+                <div class="marquee-item">
+                    <i class="fas fa-award text-sky text-base"></i>
+                    <span class="font-medium text-xs sm:text-sm tracking-wider uppercase text-white/90">Especialistas OAB</span>
+                </div>
+                <span class="marquee-bullet">·</span>
+                <div class="marquee-item">
+                    <i class="fas fa-handshake text-sky text-base"></i>
+                    <span class="font-medium text-xs sm:text-sm tracking-wider uppercase text-white/90">Atendimento Transparente</span>
+                </div>
+                <span class="marquee-bullet">·</span>
+                <div class="marquee-item">
+                    <i class="fas fa-gavel text-sky text-base"></i>
+                    <span class="font-medium text-xs sm:text-sm tracking-wider uppercase text-white/90">Alta Taxa de Sucesso</span>
+                </div>
+                <span class="marquee-bullet">·</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Especialidades / Áreas de Atuação com Carrossel -->
+    <section id="servicos" class="py-24 sm:py-28 bg-paper relative overflow-hidden">
+        <div class="max-w-[1200px] mx-auto px-6 sm:px-8">
+            <!-- Cabeçalho da Seção com Controles do Carrossel -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div class="max-w-2xl text-left">
+                    <span class="eyebrow mb-3 block">Especialidades</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif text-ink mb-4">O que podemos fazer por você</h2>
+                    <p class="text-muted text-base leading-relaxed">Especialistas em transformar direitos previdenciários em benefícios reais.</p>
+                </div>
+
+                <!-- Controles do Carrossel no Estilo Editorial -->
+                <div class="flex items-center gap-3 shrink-0">
+                    <span id="carouselCounter" class="text-xs font-mono tracking-widest text-muted mr-2">01 / 14</span>
+                    <button type="button" id="carouselPrev" class="carousel-control-btn" aria-label="Especialidade anterior">
+                        <i class="fas fa-arrow-left text-xs"></i>
+                    </button>
+                    <button type="button" id="carouselNext" class="carousel-control-btn" aria-label="Próxima especialidade">
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Carrossel de Cards -->
+            <div class="carousel-container relative">
+                <div id="carouselTrack" class="carousel-track">
+                    <!-- Slide 1: Auxílio-Acidente -->
+                    <div class="carousel-slide" data-slide-index="0">
+                        <div class="service-card featured">
+                            <span class="card-number">01</span>
+                            <div>
+                                <div class="icon-box">
+                                    <i class="fas fa-user-injured"></i>
+                                </div>
+                                <span class="tag-editorial mb-3">Mais Procurado</span>
+                                <h3 class="font-serif text-xl text-ink font-normal mb-3">Auxílio-Acidente</h3>
+                                <p class="text-muted text-sm leading-relaxed mb-4">Receba uma indenização mensal vitalícia se você ficou com sequelas que reduzem sua capacidade de trabalho.</p>
+                            </div>
+                            <ul class="service-list">
+                                <li><span class="bullet">·</span><span>Sequelas de acidentes de qualquer natureza</span></li>
+                                <li><span class="bullet">·</span><span>Pode continuar trabalhando normalmente</span></li>
+                                <li><span class="bullet">·</span><span>Possibilidade de receber valores retroativos</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Auxílio-Doença -->
+                    <div class="carousel-slide" data-slide-index="1">
+                        <div class="service-card">
+                            <span class="card-number">02</span>
+                            <div>
+                                <div class="icon-box">
+                                    <i class="fas fa-notes-medical"></i>
+                                </div>
+                                <h3 class="font-serif text-xl text-ink font-normal mb-3">Auxílio-Doença</h3>
+                                <p class="text-muted text-sm leading-relaxed mb-4">Garanta sua renda enquanto está impossibilitado de trabalhar por motivo de doença ou lesão.</p>
+                            </div>
+                            <ul class="service-list">
+                                <li><span class="bullet">·</span><span>Doenças, cirurgias e recuperações</span></li>
+                                <li><span class="bullet">·</span><span>Afastamento temporário do trabalho</span></li>
+                                <li><span class="bullet">·</span><span>Possibilidade de receber valores retroativos</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Aposentadoria por Idade Urbana -->
+                    <div class="carousel-slide" data-slide-index="2">
+                        <div class="service-card">
+                            <span class="card-number">03</span>
+                            <div>
+                                <div class="icon-box">
+                                    <i class="fas fa-city"></i>
+                                </div>
+                                <h3 class="font-serif text-xl text-ink font-normal mb-3">Aposentadoria por Idade Urbana</h3>
+                                <p class="text-muted text-sm leading-relaxed mb-4">Planejamento completo para quem busca se aposentar com a melhor regra de transição possível.</p>
+                            </div>
+                            <ul class="service-list">
+                                <li><span class="bullet">·</span><span>Análise de tempo de contribuição</span></li>
+                                <li><span class="bullet">·</span><span>Verificação da idade mínima exigida</span></li>
+                                <li><span class="bullet">·</span><span>Cálculo da melhor data para requerer</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: Aposentadoria por Idade Rural -->
+                    <div class="carousel-slide" data-slide-index="3">
+                        <div class="service-card">
+                            <span class="card-number">04</span>
+                            <div>
+                                <div class="icon-box">
+                                    <i class="fas fa-tractor"></i>
+                                </div>
+                                <h3 class="font-serif text-xl text-ink font-normal mb-3">Aposentadoria por Idade Rural</h3>
+                                <p class="text-muted text-sm leading-relaxed mb-4">Aposentadoria para trabalhadores rurais com regras específicas e documentação especializada.</p>
+                            </div>
+                            <ul class="service-list">
+                                <li><span class="bullet">·</span><span>Comprovação de atividade rural</span></li>
+                                <li><span class="bullet">·</span><span>Análise de documentos alternativos</span></li>
+                                <li><span class="bullet">·</span><span>Assessoria completa no processo</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Slide 5: Aposentadoria por Tempo de Contribuição -->
+                    <div class="carousel-slide" data-slide-index="4">
+                        <div class="service-card">
+                            <span class="card-number">05</span>
+                            <div>
+                                <div class="icon-box">
+                                    <i class="fas fa-history"></i>
+                                </div>
+                                <h3 class="font-serif text-xl text-ink font-normal mb-3">Aposentadoria por Tempo de Contribuição</h3>
+                                <p class="text-muted text-sm leading-relaxed mb-4">Para quem já tem longo histórico contributivo e quer garantir o melhor benefício possível.</p>
+                            </div>
+                            <ul class="service-list">
+                                <li><span class="bullet">·</span><span>Análise completa do CNIS</span></li>
+                                <li><span class="bullet">·</span><span>Identificação de períodos não averbados</span></li>
+                                <li><span class="bullet">·</span><span>Cálculo da melhor data para requerer</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Slide 6: Aposentadoria Especial -->
+                    <div class="carousel-slide" data-slide-index="5">
+                        <div class="service-card">
+                            <span class="card-number">06</span>
+                            <div>
+                                <div class="icon-box">
+                                    <i class="fas fa-hard-hat"></i>
+                                </div>
+                                <h3 class="font-serif text-xl text-ink font-normal mb-3">Aposentadoria Especial</h3>
+                                <p class="text-muted text-sm leading-relaxed mb-4">Para trabalhadores expostos a agentes nocivos à saúde com tempo de contribuição reduzido.</p>
+                            </div>
+                            <ul class="service-list">
+                                <li><span class="bullet">·</span><span>Exposição a agentes físicos, químicos e biológicos</span></li>
+                                <li><span class="bullet">·</span><span>Análise do PPP e laudo técnico</span></li>
+                                <li><span class="bullet">·</span><span>Assessoria completa no processo</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Slide 7: Aposentadoria da Pessoa com Deficiência -->
+                    <div class="carousel-slide" data-slide-index="6">
+                        <div class="service-card">
+                            <span class="card-number">07</span>
+                            <div>
+                                <div class="icon-box">
+                                    <i class="fas fa-wheelchair"></i>
+                                </div>
+                                <h3 class="font-serif text-xl text-ink font-normal mb-3">Aposentadoria da Pessoa com Deficiência</h3>
+                                <p class="text-muted text-sm leading-relaxed mb-4">Aposentadoria com tempo de contribuição reduzido para pessoas com deficiência comprovada.</p>
+                            </div>
+                            <ul class="service-list">
+                                <li><span class="bullet">·</span><span>Deficiência leve, moderada ou grave</span></li>
+                                <li><span class="bullet">·</span><span>Tempo de contribuição reduzido</span></li>
+                                <li><span class="bullet">·</span><span>Assessoria completa no processo</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Slide 8: Aposentadoria por Invalidez -->
+                    <div class="carousel-slide" data-slide-index="7">
+                        <div class="service-card">
+                            <span class="card-number">08</span>
+                            <div>
+                                <div class="icon-box">
+                                    <i class="fas fa-procedures"></i>
+                                </div>
+                                <h3 class="font-serif text-xl text-ink font-normal mb-3">Aposentadoria por Invalidez</h3>
+                                <p class="text-muted text-sm leading-relaxed mb-4">Para quem está permanentemente incapacitado para qualquer atividade laborativa.</p>
+                            </div>
+                            <ul class="service-list">
+                                <li><span class="bullet">·</span><span>Incapacidade total e permanente</span></li>
+                                <li><span class="bullet">·</span><span>Análise de laudos e documentos médicos</span></li>
+                                <li><span class="bullet">·</span><span>Possibilidade de receber valores retroativos</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Slide 9: Pensão por Morte -->
+                    <div class="carousel-slide" data-slide-index="8">
+                        <div class="service-card">
+                            <span class="card-number">09</span>
+                            <div>
+                                <div class="icon-box">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <h3 class="font-serif text-xl text-ink font-normal mb-3">Pensão por Morte</h3>
+                                <p class="text-muted text-sm leading-relaxed mb-4">Garantia de renda para os dependentes do segurado falecido.</p>
+                            </div>
+                            <ul class="service-list">
+                                <li><span class="bullet">·</span><span>Cônjuge, filhos e demais dependentes</span></li>
+                                <li><span class="bullet">·</span><span>Análise da qualidade de segurado do falecido</span></li>
+                                <li><span class="bullet">·</span><span>Possibilidade de receber valores retroativos</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Slide 10: Auxílio-Reclusão -->
+                    <div class="carousel-slide" data-slide-index="9">
+                        <div class="service-card">
+                            <span class="card-number">10</span>
+                            <div>
+                                <div class="icon-box">
+                                    <i class="fas fa-user-lock"></i>
+                                </div>
+                                <h3 class="font-serif text-xl text-ink font-normal mb-3">Auxílio-Reclusão</h3>
+                                <p class="text-muted text-sm leading-relaxed mb-4">Benefício para os dependentes do segurado de baixa renda que se encontra preso.</p>
+                            </div>
+                            <ul class="service-list">
+                                <li><span class="bullet">·</span><span>Cônjuge, filhos e demais dependentes</span></li>
+                                <li><span class="bullet">·</span><span>Análise da qualidade de segurado</span></li>
+                                <li><span class="bullet">·</span><span>Assessoria completa no processo</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Slide 11: Salário-Maternidade -->
+                    <div class="carousel-slide" data-slide-index="10">
+                        <div class="service-card">
+                            <span class="card-number">11</span>
+                            <div>
+                                <div class="icon-box">
+                                    <i class="fas fa-baby"></i>
+                                </div>
+                                <h3 class="font-serif text-xl text-ink font-normal mb-3">Salário-Maternidade</h3>
+                                <p class="text-muted text-sm leading-relaxed mb-4">Garantia do benefício para gestantes, adotantes e mães que tiveram o benefício negado.</p>
+                            </div>
+                            <ul class="service-list">
+                                <li><span class="bullet">·</span><span>Trabalhadoras urbanas, rurais e autônomas</span></li>
+                                <li><span class="bullet">·</span><span>Análise do período de carência</span></li>
+                                <li><span class="bullet">·</span><span>Possibilidade de receber valores retroativos</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Slide 12: BPC / LOAS -->
+                    <div class="carousel-slide" data-slide-index="11">
+                        <div class="service-card">
+                            <span class="card-number">12</span>
+                            <div>
+                                <div class="icon-box">
+                                    <i class="fas fa-hand-holding-heart"></i>
+                                </div>
+                                <h3 class="font-serif text-xl text-ink font-normal mb-3">BPC / LOAS</h3>
+                                <p class="text-muted text-sm leading-relaxed mb-4">Assistência jurídica para idosos e pessoas com deficiência em situação de vulnerabilidade.</p>
+                            </div>
+                            <ul class="service-list">
+                                <li><span class="bullet">·</span><span>Comprovação de renda familiar</span></li>
+                                <li><span class="bullet">·</span><span>Avaliação socioeconômica</span></li>
+                                <li><span class="bullet">·</span><span>Assessoria completa no processo</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Slide 13: Revisão de Benefício -->
+                    <div class="carousel-slide" data-slide-index="12">
+                        <div class="service-card">
+                            <span class="card-number">13</span>
+                            <div>
+                                <div class="icon-box">
+                                    <i class="fas fa-calculator"></i>
+                                </div>
+                                <h3 class="font-serif text-xl text-ink font-normal mb-3">Revisão de Benefício</h3>
+                                <p class="text-muted text-sm leading-relaxed mb-4">Para quem já recebe um benefício do INSS mas suspeita que o valor está incorreto.</p>
+                            </div>
+                            <ul class="service-list">
+                                <li><span class="bullet">·</span><span>Análise do cálculo do benefício</span></li>
+                                <li><span class="bullet">·</span><span>Identificação de erros e inconsistências</span></li>
+                                <li><span class="bullet">·</span><span>Possibilidade de receber diferenças retroativas</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Slide 14: Restabelecimento de Benefício Cessado -->
+                    <div class="carousel-slide" data-slide-index="13">
+                        <div class="service-card">
+                            <span class="card-number">14</span>
+                            <div>
+                                <div class="icon-box">
+                                    <i class="fas fa-redo"></i>
+                                </div>
+                                <h3 class="font-serif text-xl text-ink font-normal mb-3">Restabelecimento de Benefício Cessado</h3>
+                                <p class="text-muted text-sm leading-relaxed mb-4">Para quem teve o benefício cancelado pelo INSS de forma indevida.</p>
+                            </div>
+                            <ul class="service-list">
+                                <li><span class="bullet">·</span><span>Análise da legalidade da cessação</span></li>
+                                <li><span class="bullet">·</span><span>Reativação do benefício</span></li>
+                                <li><span class="bullet">·</span><span>Possibilidade de receber valores retroativos</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Indicadores / Dots de Navegação -->
+            <div class="flex items-center justify-center gap-2 mt-8">
+                <div id="carouselDots" class="flex items-center gap-1.5"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Agendamento / Atendimento com Seletor no Estilo do Site -->
+    <section id="agendamento" class="py-24 sm:py-28 bg-paper2 border-t border-b border-line">
+        <div class="max-w-[1200px] mx-auto px-6 sm:px-8">
+            <div class="bg-card border border-line rounded-sm shadow-editorial overflow-hidden flex flex-col lg:flex-row">
+                <!-- Coluna da Esquerda: Informações e Apresentação -->
+                <div class="lg:w-1/2 p-8 sm:p-12 lg:p-14 bg-paper/50 border-b lg:border-b-0 lg:border-r border-line flex flex-col justify-between">
+                    <div>
+                        <span class="eyebrow mb-3 block">Contato</span>
+                        <h2 class="text-3xl font-serif text-ink mb-4">Reserve seu atendimento</h2>
+                        <p class="text-muted text-sm leading-relaxed mb-8">
+                            Escolha o assunto e confirme seu atendimento com a equipe da Dr. Leticia Blumck. Atendimento presencial ou online.
+                        </p>
+                        
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center gap-4 p-4 bg-card border border-line rounded-sm">
+                                <div class="w-10 h-10 bg-powder text-royal rounded-sm flex items-center justify-center shrink-0">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-wider text-muted font-medium mb-0.5">Duração</p>
+                                    <p class="font-serif text-ink text-base">Consulta de 45 min</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 p-4 bg-card border border-line rounded-sm">
+                                <div class="w-10 h-10 bg-powder text-royal rounded-sm flex items-center justify-center shrink-0">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-wider text-muted font-medium mb-0.5">Local</p>
+                                    <p class="font-serif text-ink text-base">WhatsApp vídeo ou presencial</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cartão da Dra. Leticia Blumck -->
+                    <div class="p-5 bg-card border border-line rounded-sm">
+                        <div class="flex items-center gap-3.5 mb-2.5">
+                            <img src="https://i.pravatar.cc/150?u=lawyer" alt="Dra. Leticia Blumck" class="w-12 h-12 rounded-full border border-steel object-cover">
+                            <div>
+                                <h4 class="font-serif text-base text-ink">Dra. Leticia Blumck</h4>
+                                <p class="text-xs text-muted">Especialista Previdenciário</p>
+                            </div>
+                        </div>
+                        <p class="text-xs sm:text-sm text-muted italic font-serif border-t border-line/60 pt-2.5">
+                            Estarei pronta para analisar seu caso pessoalmente.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Coluna da Direita: Formulário de Atendimento com Seletor no Estilo do Site -->
+                <div class="lg:w-1/2 p-8 sm:p-12 lg:p-14 bg-card flex flex-col justify-center">
+                    <form id="appointmentForm" class="space-y-8 flex flex-col justify-center h-full">
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-royal font-semibold mb-3">Assunto do Atendimento</label>
+                            
+                            <!-- Custom Select Wrapper no Estilo do Site -->
+                            <div class="custom-select-wrapper" id="customServiceSelect">
+                                <!-- Select nativo preservado para formulários e integrações -->
+                                <select name="servico" id="realServiceSelect" class="sr-only" tabindex="-1">
+                                    <option>Auxílio-Acidente</option>
+                                    <option>Auxílio-Doença</option>
+                                    <option>Aposentadoria por Idade Urbana</option>
+                                    <option>Aposentadoria por Idade Rural</option>
+                                    <option>Aposentadoria por Tempo de Contribuição</option>
+                                    <option>Aposentadoria Especial</option>
+                                    <option>Aposentadoria da Pessoa com Deficiência</option>
+                                    <option>Aposentadoria por Invalidez</option>
+                                    <option>Pensão por Morte</option>
+                                    <option>Auxílio-Reclusão</option>
+                                    <option>Salário-Maternidade</option>
+                                    <option>BPC / LOAS</option>
+                                    <option>Revisão de Benefício</option>
+                                    <option>Restabelecimento de Benefício Cessado</option>
+                                    <option>Outros</option>
+                                </select>
+
+                                <!-- Trigger estilizado -->
+                                <button type="button" id="customSelectTrigger" class="custom-select-trigger" aria-haspopup="listbox" aria-expanded="false">
+                                    <span id="customSelectLabel">Auxílio-Acidente</span>
+                                    <i class="fas fa-chevron-down custom-select-icon"></i>
+                                </button>
+
+                                <!-- Dropdown suspenso personalizado no estilo editorial -->
+                                <div id="customSelectDropdown" class="custom-select-dropdown" role="listbox"></div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="primary-button w-full py-4 text-center justify-center text-sm">
+                            Confirmar Atendimento <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Sobre Nós -->
+    <section class="py-24 sm:py-28 bg-paper">
+        <div class="max-w-[1200px] mx-auto px-6 sm:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Foto com estilo galeria e nota de experiência -->
+                <div class="relative">
+                    <div class="snap-card relative">
+                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Nosso Escritório" class="w-full h-auto object-cover rounded-xs">
+                        
+                        <div class="editorial-note absolute -bottom-6 -right-4 sm:-bottom-8 sm:-right-8 max-w-[210px] transform rotate-[1.5deg]">
+                            <div class="font-serif text-3xl text-royal font-normal leading-none mb-1">8+</div>
+                            <div class="text-[0.68rem] tracking-widest uppercase font-semibold text-muted leading-tight">Anos de Foco<br>Previdenciário</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conteúdo Institucional -->
+                <div>
+                    <span class="eyebrow mb-3 block">Sobre Nós</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif text-ink mb-6">Compromisso com o seu Direito</h2>
+                    
+                    <p class="text-muted text-base leading-relaxed mb-5 font-normal">
+                        Sabemos que lidar com o INSS pode ser frustrante e desgastante. Por isso, nosso atendimento é pessoal e direto. Você tem acesso à nossa equipe em todas as etapas do seu caso, do primeiro contato até o benefício aprovado.
+                    </p>
+                    <p class="text-muted text-base leading-relaxed mb-8 font-normal">
+                        Aqui cada cliente é tratado com atenção individual, pois acreditamos que por trás de cada processo existe uma história que merece ser ouvida e um direito que merece ser defendido.
+                    </p>
+                    
+                    <!-- Pilares de Atuação -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-8">
+                        <div class="p-3.5 bg-card border border-line rounded-sm flex items-center gap-3">
+                            <i class="fas fa-check-circle text-cobalt text-base"></i>
+                            <span class="font-medium text-ink text-sm">Análise sem Custo</span>
+                        </div>
+                        <div class="p-3.5 bg-card border border-line rounded-sm flex items-center gap-3">
+                            <i class="fas fa-check-circle text-cobalt text-base"></i>
+                            <span class="font-medium text-ink text-sm">Atendimento Nacional</span>
+                        </div>
+                        <div class="p-3.5 bg-card border border-line rounded-sm flex items-center gap-3">
+                            <i class="fas fa-check-circle text-cobalt text-base"></i>
+                            <span class="font-medium text-ink text-sm">+8 Anos de Experiência</span>
+                        </div>
+                        <div class="p-3.5 bg-card border border-line rounded-sm flex items-center gap-3">
+                            <i class="fas fa-check-circle text-cobalt text-base"></i>
+                            <span class="font-medium text-ink text-sm">Foco em Resultados</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#agendamento" class="secondary-button">
+                        Conheça nossa equipe <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ / Dúvidas Frequentes -->
+    <section class="py-24 sm:py-28 bg-paper2 border-t border-line">
+        <div class="max-w-[1200px] mx-auto px-6 sm:px-8">
+            <div class="text-center max-w-xl mx-auto mb-14">
+                <h2 class="text-3xl sm:text-4xl font-serif text-ink mb-3">Dúvidas Frequentes</h2>
+            </div>
+            
+            <div class="faq-wrap">
+                <details class="faq-item group">
+                    <summary>
+                        <span>A análise do meu caso tem custo?</span>
+                        <span class="faq-toggle">+</span>
+                    </summary>
+                    <div class="faq-content">
+                        Não. A análise inicial é totalmente gratuita. Avaliamos seu caso sem nenhum compromisso para que você entenda seus direitos antes de tomar qualquer decisão.
+                    </div>
+                </details>
+
+                <details class="faq-item group">
+                    <summary>
+                        <span>Quais documentos preciso?</span>
+                        <span class="faq-toggle">+</span>
+                    </summary>
+                    <div class="faq-content">
+                        Não se preocupe se não tiver todos os documentos — isso não é motivo para desistir. No primeiro atendimento orientamos exatamente o que será necessário e ajudamos você a reunir tudo.
+                    </div>
+                </details>
+
+                <details class="faq-item group">
+                    <summary>
+                        <span>A consulta pode ser feita online?</span>
+                        <span class="faq-toggle">+</span>
+                    </summary>
+                    <div class="faq-content">
+                        Sim! Atendemos tanto de forma presencial em Goiânia quanto online, por videochamada. Você escolhe o formato mais conveniente para você.
+                    </div>
+                </details>
+
+                <details class="faq-item group">
+                    <summary>
+                        <span>Vocês atendem fora de Goiânia?</span>
+                        <span class="faq-toggle">+</span>
+                    </summary>
+                    <div class="faq-content">
+                        Sim, atendemos clientes de todo o Brasil. Os processos previdenciários são eletrônicos, o que nos permite atuar em qualquer estado do país com a mesma qualidade e dedicação.
+                    </div>
+                </details>
+
+                <details class="faq-item group">
+                    <summary>
+                        <span>Vocês atuam em outras áreas?</span>
+                        <span class="faq-toggle">+</span>
+                    </summary>
+                    <div class="faq-content">
+                        Não. Somos especialistas exclusivamente em Direito Previdenciário. Essa escolha é intencional e permite dedicação total a uma área específica, permitindo entregar um resultado muito mais efetivo para nossos clientes.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé Editorial -->
+    <footer class="bg-navy text-white pt-20 pb-12 border-t border-royal">
+        <div class="max-w-[1200px] mx-auto px-6 sm:px-8">
+            <div class="grid md:grid-cols-3 gap-12 lg:gap-16 mb-16">
+                <!-- Coluna 1: Marca e Redes -->
+                <div>
+                    <a href="#inicio" class="flex items-center space-x-4 mb-6 inline-block">
+                        <img src="Logo_site.png" alt="Blumck Advocacia" class="h-14 w-auto brightness-0 invert opacity-90">
+                    </a>
+                    <p class="text-white/70 text-sm leading-relaxed max-w-sm mb-6">
+                        Advocacia previdenciária especializada, com atendimento humanizado e atuação em todo o Brasil.
+                    </p>
+                    <div class="flex space-x-3">
+                        <a href="https://www.instagram.com/leticiablumck/" class="w-9 h-9 border border-white/20 rounded-xs flex items-center justify-center hover:bg-white hover:text-navy text-white/80 transition-all text-sm" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/leticia.blumck" class="w-9 h-9 border border-white/20 rounded-xs flex items-center justify-center hover:bg-white hover:text-navy text-white/80 transition-all text-sm" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Coluna 2: Contato e Localização -->
+                <div>
+                    <h4 class="font-sans text-xs tracking-widest uppercase font-semibold text-sky mb-6">Atendimento</h4>
+                    <ul class="space-y-4 text-white/75 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt text-sky mt-1"></i>
+                            <span class="leading-relaxed">Av. Dep. Jamel Cecílio, 2496<br>Edifício New Business, sala B62<br>Jardim Goiás - Goiânia/GO</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fab fa-whatsapp text-sky text-base"></i>
+                            <span class="font-medium text-white">(62) 98237-0184</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Coluna 3: Navegação -->
+                <div>
+                    <h4 class="font-sans text-xs tracking-widest uppercase font-semibold text-sky mb-6">Navegação</h4>
+                    <ul class="space-y-3 text-white/75 text-sm">
+                        <li><a href="#inicio" class="hover:text-white transition-colors">Início</a></li>
+                        <li><a href="#servicos" class="hover:text-white transition-colors">Especialidades</a></li>
+                        <li><a href="#agendamento" class="hover:text-white transition-colors">Agendamento</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Sub-rodapé -->
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-white/50 text-xs">
+                <p>&copy; 2026 Blumck Advocacia. Todos os direitos reservados. OAB-GO 58.619</p>
+                <p>Desenvolvido com foco em Resultados | Zentry Media.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/5562982370184" class="wa-float-btn" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <script src="n8n-integration.js"></script>
+    <script src="main.js"></script>
+
+</body>
+</html>
