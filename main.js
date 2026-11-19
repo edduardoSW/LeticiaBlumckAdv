@@ -1,8 +1,4 @@
-// ==========================================================================
-// Blumck Advocacia - Script de Navegação, Carrossel e Seletor Customizado
-// ==========================================================================
 
-// Configuração do Tailwind com o Design System Editorial
 if (typeof tailwind !== 'undefined') {
   tailwind.config = {
     theme: {
@@ -47,7 +43,6 @@ if (typeof tailwind !== 'undefined') {
   };
 }
 
-// Funções globais de menu mobile
 let mobileMenu, menuIcon;
 
 function toggleMobileMenu() {
@@ -81,9 +76,6 @@ function closeMobileMenu() {
   document.body.classList.remove('overflow-hidden');
 }
 
-// ==========================================================================
-// Módulo: Carrossel Editorial de Especialidades
-// ==========================================================================
 function initCarousel() {
   const track = document.getElementById('carouselTrack');
   const prevBtn = document.getElementById('carouselPrev');
@@ -97,20 +89,18 @@ function initCarousel() {
   const totalSlides = slides.length;
   if (totalSlides === 0) return;
 
-  // Gerar os pontos indicadores de navegação
+  let progressFill = null;
+
   if (dotsContainer) {
     dotsContainer.innerHTML = '';
-    slides.forEach((_, idx) => {
-      const dot = document.createElement('button');
-      dot.type = 'button';
-      dot.className = `carousel-dot ${idx === 0 ? 'active' : ''}`;
-      dot.setAttribute('aria-label', `Ir para slide ${idx + 1}`);
-      dot.addEventListener('click', () => goToSlide(idx));
-      dotsContainer.appendChild(dot);
-    });
+    dotsContainer.className = 'carousel-progress';
+    dotsContainer.setAttribute('role', 'progressbar');
+    dotsContainer.setAttribute('aria-valuemin', '1');
+    progressFill = document.createElement('span');
+    progressFill.className = 'carousel-progress-fill';
+    dotsContainer.appendChild(progressFill);
   }
 
-  // Obter o passo de rolagem (largura de 1 slide + gap)
   function getStepWidth() {
     if (slides.length < 2) return track.clientWidth;
     const firstRect = slides[0].getBoundingClientRect();
@@ -119,52 +109,59 @@ function initCarousel() {
     return step > 0 ? step : firstRect.width;
   }
 
-  // Obter o índice do slide atualmente visível
-  function getCurrentIndex() {
+  function getMetrics() {
     const step = getStepWidth();
-    if (step <= 0) return 0;
-    const index = Math.round(track.scrollLeft / step);
-    return Math.max(0, Math.min(index, totalSlides - 1));
+    const visibleCount = step > 0
+      ? Math.max(1, Math.round(track.clientWidth / step))
+      : 1;
+    const pageCount = Math.max(1, Math.ceil(totalSlides / visibleCount));
+    const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+
+    return { step, visibleCount, pageCount, maxScroll };
   }
 
-  // Atualizar contador e indicadores visuais
-  function updateCarouselUI() {
-    const currentIndex = getCurrentIndex();
+  function getCurrentPage(metrics) {
+    if (metrics.maxScroll <= 5 || metrics.pageCount === 1) return 0;
+    const progress = track.scrollLeft / metrics.maxScroll;
+    return Math.max(
+      0,
+      Math.min(metrics.pageCount - 1, Math.round(progress * (metrics.pageCount - 1)))
+    );
+  }
 
-    // Atualizar texto do contador "01 / 14"
+  function updateCarouselUI() {
+    const metrics = getMetrics();
+    const currentPage = getCurrentPage(metrics);
+
     if (counter) {
-      const currentFormatted = String(currentIndex + 1).padStart(2, '0');
-      const totalFormatted = String(totalSlides).padStart(2, '0');
+      const currentFormatted = String(currentPage + 1).padStart(2, '0');
+      const totalFormatted = String(metrics.pageCount).padStart(2, '0');
       counter.textContent = `${currentFormatted} / ${totalFormatted}`;
     }
 
-    // Atualizar pontos indicadores
-    if (dotsContainer) {
-      const dots = dotsContainer.querySelectorAll('.carousel-dot');
-      dots.forEach((dot, idx) => {
-        if (idx === currentIndex) {
-          dot.classList.add('active');
-        } else {
-          dot.classList.remove('active');
-        }
-      });
+    if (dotsContainer && progressFill) {
+      const percentage = ((currentPage + 1) / metrics.pageCount) * 100;
+      progressFill.style.width = `${percentage}%`;
+      dotsContainer.setAttribute('aria-valuemax', String(metrics.pageCount));
+      dotsContainer.setAttribute('aria-valuenow', String(currentPage + 1));
+      dotsContainer.setAttribute(
+        'aria-label',
+        `Página ${currentPage + 1} de ${metrics.pageCount} das especialidades`
+      );
     }
 
-    // Atualizar estado de desabilitação dos botões
     if (prevBtn) {
       prevBtn.disabled = track.scrollLeft <= 5;
     }
     if (nextBtn) {
-      const maxScrollLeft = track.scrollWidth - track.clientWidth - 5;
-      nextBtn.disabled = track.scrollLeft >= maxScrollLeft;
+      nextBtn.disabled = track.scrollLeft >= metrics.maxScroll - 5;
     }
   }
 
-  // Ir diretamente para um slide específico
   function goToSlide(index) {
     const clampedIndex = Math.max(0, Math.min(index, totalSlides - 1));
-    const step = getStepWidth();
-    const targetScroll = clampedIndex * step;
+    const metrics = getMetrics();
+    const targetScroll = Math.min(clampedIndex * metrics.step, metrics.maxScroll);
 
     track.scrollTo({
       left: targetScroll,
@@ -174,43 +171,54 @@ function initCarousel() {
     setTimeout(updateCarouselUI, 300);
   }
 
-  // Expor globalmente para os atalhos da Hero Card
+  function goToPage(pageIndex) {
+    const metrics = getMetrics();
+    const clampedPage = Math.max(0, Math.min(pageIndex, metrics.pageCount - 1));
+    const targetScroll = Math.min(
+      clampedPage * metrics.visibleCount * metrics.step,
+      metrics.maxScroll
+    );
+
+    track.scrollTo({
+      left: targetScroll,
+      behavior: 'smooth'
+    });
+
+    setTimeout(updateCarouselUI, 300);
+  }
+
   window.goToCarouselSlide = function (targetIndex, shouldHighlight = true) {
     goToSlide(targetIndex);
     if (shouldHighlight && slides[targetIndex]) {
       const card = slides[targetIndex].querySelector('.service-card');
       if (card) {
         card.classList.remove('card-highlight');
-        void card.offsetWidth; // Forçar reflow
+        void card.offsetWidth;
         card.classList.add('card-highlight');
       }
     }
   };
 
-  // Botão Anterior
   if (prevBtn) {
     prevBtn.addEventListener('click', () => {
-      const step = getStepWidth();
-      track.scrollBy({ left: -step, behavior: 'smooth' });
+      const metrics = getMetrics();
+      goToPage(getCurrentPage(metrics) - 1);
     });
   }
 
-  // Botão Próximo
   if (nextBtn) {
     nextBtn.addEventListener('click', () => {
-      const step = getStepWidth();
-      track.scrollBy({ left: step, behavior: 'smooth' });
+      const metrics = getMetrics();
+      goToPage(getCurrentPage(metrics) + 1);
     });
   }
 
-  // Atualizar UI durante a rolagem com throttling
   let isScrolling;
   track.addEventListener('scroll', () => {
     window.clearTimeout(isScrolling);
     isScrolling = setTimeout(updateCarouselUI, 60);
   }, { passive: true });
 
-  // Arrastar com o mouse (Drag-to-scroll) para Desktop
   let isDown = false;
   let startX;
   let scrollLeft;
@@ -237,14 +245,10 @@ function initCarousel() {
     track.scrollLeft = scrollLeft - walk;
   });
 
-  // Atualização inicial
-  setTimeout(updateCarouselUI, 100);
+  window.requestAnimationFrame(updateCarouselUI);
   window.addEventListener('resize', updateCarouselUI);
 }
 
-// ==========================================================================
-// Módulo: Atalhos Clicáveis da Hero Card
-// ==========================================================================
 function initHeroQuickLinks() {
   const quickLinks = document.querySelectorAll('[data-carousel-target]');
   quickLinks.forEach(link => {
@@ -260,7 +264,6 @@ function initHeroQuickLinks() {
           behavior: 'smooth'
         });
 
-        // Aguarda a rolagem e posiciona o carrossel no card com destaque
         setTimeout(() => {
           if (typeof window.goToCarouselSlide === 'function') {
             window.goToCarouselSlide(targetIndex, true);
@@ -271,9 +274,6 @@ function initHeroQuickLinks() {
   });
 }
 
-// ==========================================================================
-// Módulo: Seletor Customizado no Estilo do Site
-// ==========================================================================
 function initCustomSelect() {
   const selectWrapper = document.getElementById('customServiceSelect');
   const realSelect = document.getElementById('realServiceSelect');
@@ -283,7 +283,6 @@ function initCustomSelect() {
 
   if (!selectWrapper || !realSelect || !trigger || !triggerLabel || !dropdown) return;
 
-  // Preencher as opções customizadas baseando-se no <select> original
   dropdown.innerHTML = '';
   const options = Array.from(realSelect.options);
 
@@ -307,7 +306,6 @@ function initCustomSelect() {
     dropdown.appendChild(optDiv);
   });
 
-  // Definir rótulo inicial
   if (realSelect.selectedIndex >= 0) {
     triggerLabel.textContent = realSelect.options[realSelect.selectedIndex].text;
   }
@@ -316,7 +314,6 @@ function initCustomSelect() {
     realSelect.value = value;
     triggerLabel.textContent = text;
 
-    // Atualizar classe selected na lista
     const allOptions = dropdown.querySelectorAll('.custom-option');
     allOptions.forEach(el => {
       if (el.getAttribute('data-value') === value) {
@@ -326,7 +323,6 @@ function initCustomSelect() {
       }
     });
 
-    // Disparar evento change no select original para integrações (ex: n8n)
     const event = new Event('change', { bubbles: true });
     realSelect.dispatchEvent(event);
   }
@@ -355,14 +351,12 @@ function initCustomSelect() {
     toggleSelect();
   });
 
-  // Fechar ao clicar fora
   document.addEventListener('click', (e) => {
     if (!selectWrapper.contains(e.target)) {
       closeSelect();
     }
   });
 
-  // Fechar com Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && selectWrapper.classList.contains('open')) {
       closeSelect();
@@ -371,9 +365,148 @@ function initCustomSelect() {
   });
 }
 
-// ==========================================================================
-// Inicialização Geral no DOM Ready
-// ==========================================================================
+function initPageTransition() {
+  const loader = document.getElementById('siteLoader');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!loader || reducedMotion) {
+    if (loader) loader.remove();
+    document.body.classList.add('site-loaded');
+    return;
+  }
+
+  const mark = loader.querySelector('.site-loader__mark');
+  let pageReady = document.readyState === 'complete';
+  let markReady = false;
+  let hasFinished = false;
+
+  document.body.classList.add('site-loading');
+
+  const finish = () => {
+    if (hasFinished || !pageReady || !markReady) return;
+    hasFinished = true;
+    loader.classList.add('is-leaving');
+    document.body.classList.remove('site-loading');
+    document.body.classList.add('site-loaded');
+
+    const removeLoader = () => loader.remove();
+    loader.addEventListener('transitionend', event => {
+      if (event.target === loader && event.propertyName === 'transform') {
+        removeLoader();
+      }
+    });
+    window.setTimeout(removeLoader, 1300);
+  };
+
+  if (mark) {
+    mark.addEventListener('animationend', () => {
+      markReady = true;
+      finish();
+    }, { once: true });
+  } else {
+    markReady = true;
+  }
+
+  window.requestAnimationFrame(() => loader.classList.add('is-ready'));
+
+  if (!pageReady) {
+    window.addEventListener('load', () => {
+      pageReady = true;
+      finish();
+    }, { once: true });
+  }
+
+  window.setTimeout(() => {
+    markReady = true;
+    pageReady = pageReady || document.readyState === 'complete';
+    finish();
+  }, 1100);
+
+  window.setTimeout(() => {
+    markReady = true;
+    pageReady = true;
+    finish();
+  }, 3500);
+}
+
+function initScrollReveals() {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const groups = [
+    document.querySelectorAll('#servicos > div > .flex:first-child'),
+    document.querySelectorAll('.carousel-slide'),
+    document.querySelectorAll('#agendamento > div > div'),
+    document.querySelectorAll('section:has(img[alt="Nosso Escritório"]) .grid > div'),
+    document.querySelectorAll('section:has(.faq-wrap) > div > div:first-child, .faq-item'),
+    document.querySelectorAll('footer > div > div')
+  ];
+
+  const items = [];
+  groups.forEach((group, groupIndex) => {
+    group.forEach((element, index) => {
+      element.classList.add('reveal-item');
+
+      if (groupIndex === 3) {
+        element.classList.add(index % 2 === 0 ? 'reveal-from-left' : 'reveal-from-right');
+      }
+
+      element.style.setProperty('--reveal-delay', `${Math.min(index, 5) * 70}ms`);
+      items.push(element);
+    });
+  });
+
+  if (reducedMotion || !('IntersectionObserver' in window)) {
+    items.forEach(item => item.classList.add('is-visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries, activeObserver) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      activeObserver.unobserve(entry.target);
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -8% 0px'
+  });
+
+  items.forEach(item => observer.observe(item));
+}
+
+function initHeroDepth() {
+  const hero = document.querySelector('.hero-editorial');
+  const card = hero?.querySelector('.snap-card');
+  const canMove = window.matchMedia('(pointer: fine)').matches &&
+                  !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!hero || !card || !canMove) return;
+
+  let frameId = null;
+  let pointerX = 0;
+  let pointerY = 0;
+
+  const render = () => {
+    card.style.transform = `rotate(${(-1.5 + pointerX * 0.9).toFixed(2)}deg) translate3d(${(pointerX * 6).toFixed(1)}px, ${(pointerY * 6).toFixed(1)}px, 0)`;
+    frameId = null;
+  };
+
+  hero.addEventListener('pointermove', event => {
+    const bounds = hero.getBoundingClientRect();
+    pointerX = (event.clientX - bounds.left) / bounds.width - 0.5;
+    pointerY = (event.clientY - bounds.top) / bounds.height - 0.5;
+
+    if (!frameId) frameId = window.requestAnimationFrame(render);
+  }, { passive: true });
+
+  hero.addEventListener('pointerleave', () => {
+    pointerX = 0;
+    pointerY = 0;
+    card.style.transform = 'rotate(-1.5deg) translate3d(0, 0, 0)';
+  });
+}
+
+initPageTransition();
+
 document.addEventListener('DOMContentLoaded', function () {
   const header = document.querySelector('header');
   const progressBar = document.getElementById('scrollProgressBar');
@@ -381,30 +514,25 @@ document.addEventListener('DOMContentLoaded', function () {
   mobileMenu = document.getElementById('mobileMenu');
   menuIcon = document.getElementById('menuIcon');
 
-  // Toggle do menu mobile
   if (mobileMenuToggle) {
     mobileMenuToggle.addEventListener('click', toggleMobileMenu);
   }
 
-  // Fechar menu mobile com tecla ESC
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && mobileMenu && !mobileMenu.classList.contains('hidden')) {
       closeMobileMenu();
     }
   });
 
-  // Atualização da barra de rolagem e estilo do header
   const handleScroll = () => {
     const scrollY = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
 
-    // Barra de progresso
     if (progressBar && docHeight > 0) {
       const scrollPercent = (scrollY / docHeight) * 100;
       progressBar.style.width = Math.min(100, Math.max(0, scrollPercent)) + '%';
     }
 
-    // Header fixo com sombra e blur refinados
     if (header) {
       if (scrollY > 25) {
         header.classList.add('scrolled');
@@ -417,7 +545,6 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
 
-  // Scroll Spy para links de navegação
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('nav a[href^="#"]');
 
@@ -446,12 +573,12 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('scroll', updateActiveNavLink, { passive: true });
   updateActiveNavLink();
 
-  // Inicializar Componentes Específicos Solicitados
   initCarousel();
   initHeroQuickLinks();
   initCustomSelect();
+  initScrollReveals();
+  initHeroDepth();
 
-  // FAQ Accordion exclusivo: fecha os outros ao abrir um item
   const faqDetails = document.querySelectorAll('.faq-item');
   faqDetails.forEach(detail => {
     detail.addEventListener('toggle', function () {

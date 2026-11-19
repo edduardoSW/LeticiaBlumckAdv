@@ -1,19 +1,33 @@
 <!DOCTYPE html>
-<html lang="pt-br" class="scroll-smooth">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Advocacia previdenciária especializada em benefícios do INSS, aposentadorias, auxílio-acidente, BPC/LOAS e revisão de benefício, com atendimento em todo o Brasil.">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="theme-color" content="#132238">
+    <meta name="color-scheme" content="light">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Blumck Advocacia">
+    <meta property="og:title" content="Advocacia Previdenciária de Leticia Blumck | Garanta seu Benefício">
+    <meta property="og:description" content="Advocacia previdenciária especializada em benefícios do INSS, aposentadorias, auxílio-acidente, BPC/LOAS e revisão de benefício, com atendimento em todo o Brasil.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Advocacia Previdenciária de Leticia Blumck | Garanta seu Benefício">
+    <meta name="twitter:description" content="Advocacia previdenciária especializada em benefícios do INSS, aposentadorias, auxílio-acidente, BPC/LOAS e revisão de benefício, com atendimento em todo o Brasil.">
+    <script>document.documentElement.classList.add('js');</script>
     <title>Advocacia Previdenciária de Leticia Blumck | Garanta seu Benefício</title>
-    
-    <!-- Google Fonts: Playfair Display & Inter -->
+    <link rel="preload" href="Logo_site.png" as="image" fetchpriority="high">
+
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Tailwind CDN -->
+
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -42,26 +56,66 @@
         }
       };
     </script>
-    
+
     <link rel="automacao" href="Workflowleticia.json">
     <link rel="agendamento" href="n8n-integration.js">
     <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LegalService",
+      "name": "Blumck Advocacia",
+      "description": "Advocacia previdenciária especializada, com atendimento humanizado e atuação em todo o Brasil.",
+      "telephone": "+55 62 98237-0184",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Av. Dep. Jamel Cecílio, 2496, Edifício New Business, sala B62, Jardim Goiás",
+        "addressLocality": "Goiânia",
+        "addressRegion": "GO",
+        "addressCountry": "BR"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Brasil"
+      },
+      "sameAs": [
+        "https://www.instagram.com/leticiablumck/",
+        "https://www.facebook.com/leticia.blumck"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Especialidades em Direito Previdenciário",
+        "itemListElement": [
+          { "@type": "Service", "name": "Auxílio-Acidente" },
+          { "@type": "Service", "name": "Aposentadorias" },
+          { "@type": "Service", "name": "BPC / LOAS" },
+          { "@type": "Service", "name": "Revisão de Benefício" }
+        ]
+      }
+    }
+    </script>
 </head>
 <body class="bg-paper text-ink selection:bg-powder selection:text-royal">
 
-    <!-- Textura sutil de granulação editorial -->
+    <div id="siteLoader" class="site-loader" aria-hidden="true">
+        <div class="site-loader__mark">
+            <img src="Logo_site.png" alt="" width="1000" height="500" decoding="async">
+        </div>
+    </div>
+
+
     <div class="grain"></div>
 
-    <!-- Barra de progresso de leitura no topo -->
+
     <div id="scrollProgressBar"></div>
 
-    <!-- Header Editorial -->
+
     <header class="hdr fixed w-full z-50">
         <div class="max-w-[1200px] mx-auto px-6 sm:px-8 h-20 flex justify-between items-center">
             <a href="#inicio" class="flex items-center space-x-4 group">
-                <img src="Logo_site.png" alt="Blumck Advocacia" class="h-14 sm:h-16 w-auto transition-opacity duration-200 group-hover:opacity-85">
+                <img src="Logo_site.png" alt="Blumck Advocacia" width="1000" height="500" fetchpriority="high" decoding="async" class="h-14 sm:h-16 w-auto transition-opacity duration-200 group-hover:opacity-85">
             </a>
-            
+
             <nav class="hidden lg:flex space-x-8 font-medium text-ink items-center text-sm tracking-wide">
                 <a href="#inicio" class="nav-link">
                     <span>Início</span>
@@ -74,13 +128,13 @@
 
             <div class="lg:hidden flex items-center gap-3">
                 <a href="#agendamento" class="primary-button text-xs py-2 px-4">Agendar</a>
-                <button id="mobileMenuToggle" class="text-royal text-xl p-2 hover:text-cobalt focus:outline-none transition-colors" aria-label="Toggle menu">
+                <button id="mobileMenuToggle" class="text-royal text-xl p-2 hover:text-cobalt focus:outline-none transition-colors" aria-label="Abrir ou fechar menu">
                     <i class="fas fa-bars" id="menuIcon"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Menu Mobile Drawer -->
+
         <div id="mobileMenu" class="lg:hidden hidden bg-paper border-b border-line shadow-lg transition-all duration-300">
             <div class="container mx-auto px-6 py-6 flex flex-col space-y-4">
                 <a href="#inicio" class="text-ink font-serif text-xl py-3 border-b border-line/60 hover:text-royal transition-colors flex items-center justify-between" onclick="closeMobileMenu()">
@@ -96,11 +150,12 @@
         </div>
     </header>
 
-    <!-- Hero Section Editorial -->
+
+    <main>
     <section id="inicio" class="hero-editorial">
         <div class="max-w-[1200px] mx-auto px-6 sm:px-8">
             <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-16 items-center">
-                <!-- Coluna de Texto -->
+
                 <div>
                     <div class="mb-5">
                         <span class="eyebrow">
@@ -126,7 +181,7 @@
                         </a>
                     </div>
 
-                    <!-- Credenciais / Tags em linha -->
+
                     <div class="flex flex-wrap gap-2 pt-2 border-t border-line/60">
                         <span class="tag-editorial">Auxílio-Acidente</span>
                         <span class="tag-editorial">Aposentadorias</span>
@@ -135,10 +190,11 @@
                     </div>
                 </div>
 
-                <!-- Coluna Visual: Composição Estilo Snapshot com Itens Clicáveis -->
+
                 <div class="relative">
-                    <div class="snap-card transform lg:-rotate-1 hover:rotate-0 transition-transform duration-500">
-                        <!-- Topo do Card -->
+                    <img src="hero-justice-statue.png" alt="" width="1024" height="1536" decoding="async" fetchpriority="low" class="hero-statue" aria-hidden="true">
+                    <div class="snap-card hero-service-card transform lg:-rotate-1 hover:rotate-0 transition-transform duration-500">
+
                         <div class="flex items-center gap-4 mb-6 pb-5 border-b border-line">
                             <div class="w-12 h-12 bg-powder text-royal rounded-sm flex items-center justify-center text-xl shrink-0">
                                 <i class="fas fa-user-check"></i>
@@ -149,7 +205,7 @@
                             </div>
                         </div>
 
-                        <!-- Itens Clicáveis que Levam Diretamente ao Carrossel da Especialidade -->
+
                         <div class="space-y-2.5 mb-6">
                             <a href="#servicos" data-carousel-target="0" class="hero-quick-link group">
                                 <span class="text-ink font-medium text-sm transition-colors">Auxílio-Acidente</span>
@@ -165,7 +221,7 @@
                             </a>
                         </div>
 
-                        <!-- Botão no Card -->
+
                         <div class="pt-2 text-center">
                             <a href="#agendamento" class="primary-button w-full text-center justify-center text-sm py-3">
                                 <i class="far fa-calendar-check mr-2"></i> Agendar Agora
@@ -177,10 +233,10 @@
         </div>
     </section>
 
-    <!-- Faixa de Credenciais Giratória / Marquee Contínuo -->
+
     <section class="strip-ribbon overflow-hidden relative" aria-label="Credenciais e Garantias">
         <div class="marquee-track">
-            <!-- Bloco 1 -->
+
             <div class="marquee-content">
                 <div class="marquee-item">
                     <i class="fas fa-shield-halved text-sky text-base"></i>
@@ -224,7 +280,7 @@
                 <span class="marquee-bullet">·</span>
             </div>
 
-            <!-- Bloco 2 (Gêmeo para loop contínuo e infinito) -->
+
             <div class="marquee-content" aria-hidden="true">
                 <div class="marquee-item">
                     <i class="fas fa-shield-halved text-sky text-base"></i>
@@ -270,10 +326,10 @@
         </div>
     </section>
 
-    <!-- Seção de Especialidades / Áreas de Atuação com Carrossel -->
+
     <section id="servicos" class="py-24 sm:py-28 bg-paper relative overflow-hidden">
         <div class="max-w-[1200px] mx-auto px-6 sm:px-8">
-            <!-- Cabeçalho da Seção com Controles do Carrossel -->
+
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                 <div class="max-w-2xl text-left">
                     <span class="eyebrow mb-3 block">Especialidades</span>
@@ -281,9 +337,9 @@
                     <p class="text-muted text-base leading-relaxed">Especialistas em transformar direitos previdenciários em benefícios reais.</p>
                 </div>
 
-                <!-- Controles do Carrossel no Estilo Editorial -->
+
                 <div class="flex items-center gap-3 shrink-0">
-                    <span id="carouselCounter" class="text-xs font-mono tracking-widest text-muted mr-2">01 / 14</span>
+                    <span id="carouselCounter" class="text-xs font-mono tracking-widest text-muted mr-2">01 / 05</span>
                     <button type="button" id="carouselPrev" class="carousel-control-btn" aria-label="Especialidade anterior">
                         <i class="fas fa-arrow-left text-xs"></i>
                     </button>
@@ -293,10 +349,10 @@
                 </div>
             </div>
 
-            <!-- Carrossel de Cards -->
+
             <div class="carousel-container relative">
                 <div id="carouselTrack" class="carousel-track">
-                    <!-- Slide 1: Auxílio-Acidente -->
+
                     <div class="carousel-slide" data-slide-index="0">
                         <div class="service-card featured">
                             <span class="card-number">01</span>
@@ -316,7 +372,7 @@
                         </div>
                     </div>
 
-                    <!-- Slide 2: Auxílio-Doença -->
+
                     <div class="carousel-slide" data-slide-index="1">
                         <div class="service-card">
                             <span class="card-number">02</span>
@@ -335,7 +391,7 @@
                         </div>
                     </div>
 
-                    <!-- Slide 3: Aposentadoria por Idade Urbana -->
+
                     <div class="carousel-slide" data-slide-index="2">
                         <div class="service-card">
                             <span class="card-number">03</span>
@@ -354,7 +410,7 @@
                         </div>
                     </div>
 
-                    <!-- Slide 4: Aposentadoria por Idade Rural -->
+
                     <div class="carousel-slide" data-slide-index="3">
                         <div class="service-card">
                             <span class="card-number">04</span>
@@ -373,7 +429,7 @@
                         </div>
                     </div>
 
-                    <!-- Slide 5: Aposentadoria por Tempo de Contribuição -->
+
                     <div class="carousel-slide" data-slide-index="4">
                         <div class="service-card">
                             <span class="card-number">05</span>
@@ -392,7 +448,7 @@
                         </div>
                     </div>
 
-                    <!-- Slide 6: Aposentadoria Especial -->
+
                     <div class="carousel-slide" data-slide-index="5">
                         <div class="service-card">
                             <span class="card-number">06</span>
@@ -411,7 +467,7 @@
                         </div>
                     </div>
 
-                    <!-- Slide 7: Aposentadoria da Pessoa com Deficiência -->
+
                     <div class="carousel-slide" data-slide-index="6">
                         <div class="service-card">
                             <span class="card-number">07</span>
@@ -430,7 +486,7 @@
                         </div>
                     </div>
 
-                    <!-- Slide 8: Aposentadoria por Invalidez -->
+
                     <div class="carousel-slide" data-slide-index="7">
                         <div class="service-card">
                             <span class="card-number">08</span>
@@ -449,7 +505,7 @@
                         </div>
                     </div>
 
-                    <!-- Slide 9: Pensão por Morte -->
+
                     <div class="carousel-slide" data-slide-index="8">
                         <div class="service-card">
                             <span class="card-number">09</span>
@@ -468,7 +524,7 @@
                         </div>
                     </div>
 
-                    <!-- Slide 10: Auxílio-Reclusão -->
+
                     <div class="carousel-slide" data-slide-index="9">
                         <div class="service-card">
                             <span class="card-number">10</span>
@@ -487,7 +543,7 @@
                         </div>
                     </div>
 
-                    <!-- Slide 11: Salário-Maternidade -->
+
                     <div class="carousel-slide" data-slide-index="10">
                         <div class="service-card">
                             <span class="card-number">11</span>
@@ -506,7 +562,7 @@
                         </div>
                     </div>
 
-                    <!-- Slide 12: BPC / LOAS -->
+
                     <div class="carousel-slide" data-slide-index="11">
                         <div class="service-card">
                             <span class="card-number">12</span>
@@ -525,7 +581,7 @@
                         </div>
                     </div>
 
-                    <!-- Slide 13: Revisão de Benefício -->
+
                     <div class="carousel-slide" data-slide-index="12">
                         <div class="service-card">
                             <span class="card-number">13</span>
@@ -544,7 +600,7 @@
                         </div>
                     </div>
 
-                    <!-- Slide 14: Restabelecimento de Benefício Cessado -->
+
                     <div class="carousel-slide" data-slide-index="13">
                         <div class="service-card">
                             <span class="card-number">14</span>
@@ -565,28 +621,28 @@
                 </div>
             </div>
 
-            <!-- Indicadores / Dots de Navegação -->
+
             <div class="flex items-center justify-center gap-2 mt-8">
                 <div id="carouselDots" class="flex items-center gap-1.5"></div>
             </div>
         </div>
     </section>
 
-    <!-- Seção de Agendamento / Atendimento com Seletor no Estilo do Site -->
+
     <section id="agendamento" class="py-24 sm:py-28 bg-paper2 border-t border-b border-line">
         <div class="max-w-[1200px] mx-auto px-6 sm:px-8">
-            <div class="bg-card border border-line rounded-sm shadow-editorial overflow-hidden flex flex-col lg:flex-row">
-                <!-- Coluna da Esquerda: Informações e Apresentação -->
-                <div class="lg:w-1/2 p-8 sm:p-12 lg:p-14 bg-paper/50 border-b lg:border-b-0 lg:border-r border-line flex flex-col justify-between">
+            <div class="appointment-card bg-card border border-line rounded-sm shadow-editorial overflow-hidden flex flex-col lg:flex-row">
+
+                <div class="appointment-intro lg:w-1/2 p-8 sm:p-12 lg:p-14 bg-paper/50 border-b lg:border-b-0 lg:border-r border-line flex flex-col justify-between">
                     <div>
                         <span class="eyebrow mb-3 block">Contato</span>
                         <h2 class="text-3xl font-serif text-ink mb-4">Reserve seu atendimento</h2>
                         <p class="text-muted text-sm leading-relaxed mb-8">
                             Escolha o assunto e confirme seu atendimento com a equipe da Dr. Leticia Blumck. Atendimento presencial ou online.
                         </p>
-                        
+
                         <div class="space-y-4 mb-8">
-                            <div class="flex items-center gap-4 p-4 bg-card border border-line rounded-sm">
+                            <div class="appointment-meta-card flex items-center gap-4 p-4 bg-card border border-line rounded-sm">
                                 <div class="w-10 h-10 bg-powder text-royal rounded-sm flex items-center justify-center shrink-0">
                                     <i class="fas fa-clock"></i>
                                 </div>
@@ -595,7 +651,7 @@
                                     <p class="font-serif text-ink text-base">Consulta de 45 min</p>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-4 p-4 bg-card border border-line rounded-sm">
+                            <div class="appointment-meta-card flex items-center gap-4 p-4 bg-card border border-line rounded-sm">
                                 <div class="w-10 h-10 bg-powder text-royal rounded-sm flex items-center justify-center shrink-0">
                                     <i class="fas fa-video"></i>
                                 </div>
@@ -607,10 +663,10 @@
                         </div>
                     </div>
 
-                    <!-- Cartão da Dra. Leticia Blumck -->
-                    <div class="p-5 bg-card border border-line rounded-sm">
+
+                    <div class="attorney-card p-5 bg-card border border-line rounded-sm">
                         <div class="flex items-center gap-3.5 mb-2.5">
-                            <img src="https://i.pravatar.cc/150?u=lawyer" alt="Dra. Leticia Blumck" class="w-12 h-12 rounded-full border border-steel object-cover">
+                            <img src="https://i.pravatar.cc/150?u=lawyer" alt="Dra. Leticia Blumck" width="150" height="150" loading="lazy" decoding="async" class="w-12 h-12 rounded-full border border-steel object-cover">
                             <div>
                                 <h4 class="font-serif text-base text-ink">Dra. Leticia Blumck</h4>
                                 <p class="text-xs text-muted">Especialista Previdenciário</p>
@@ -622,15 +678,15 @@
                     </div>
                 </div>
 
-                <!-- Coluna da Direita: Formulário de Atendimento com Seletor no Estilo do Site -->
-                <div class="lg:w-1/2 p-8 sm:p-12 lg:p-14 bg-card flex flex-col justify-center">
+
+                <div class="appointment-form-panel lg:w-1/2 p-8 sm:p-12 lg:p-14 bg-card flex flex-col justify-center">
                     <form id="appointmentForm" class="space-y-8 flex flex-col justify-center h-full">
                         <div>
                             <label class="block text-xs uppercase tracking-wider text-royal font-semibold mb-3">Assunto do Atendimento</label>
-                            
-                            <!-- Custom Select Wrapper no Estilo do Site -->
+
+
                             <div class="custom-select-wrapper" id="customServiceSelect">
-                                <!-- Select nativo preservado para formulários e integrações -->
+
                                 <select name="servico" id="realServiceSelect" class="sr-only" tabindex="-1">
                                     <option>Auxílio-Acidente</option>
                                     <option>Auxílio-Doença</option>
@@ -649,13 +705,13 @@
                                     <option>Outros</option>
                                 </select>
 
-                                <!-- Trigger estilizado -->
+
                                 <button type="button" id="customSelectTrigger" class="custom-select-trigger" aria-haspopup="listbox" aria-expanded="false">
                                     <span id="customSelectLabel">Auxílio-Acidente</span>
                                     <i class="fas fa-chevron-down custom-select-icon"></i>
                                 </button>
 
-                                <!-- Dropdown suspenso personalizado no estilo editorial -->
+
                                 <div id="customSelectDropdown" class="custom-select-dropdown" role="listbox"></div>
                             </div>
                         </div>
@@ -669,15 +725,15 @@
         </div>
     </section>
 
-    <!-- Seção Sobre Nós -->
+
     <section class="py-24 sm:py-28 bg-paper">
         <div class="max-w-[1200px] mx-auto px-6 sm:px-8">
             <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                <!-- Foto com estilo galeria e nota de experiência -->
+
                 <div class="relative">
                     <div class="snap-card relative">
-                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Nosso Escritório" class="w-full h-auto object-cover rounded-xs">
-                        
+                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Nosso Escritório" loading="lazy" decoding="async" class="w-full h-auto object-cover rounded-xs">
+
                         <div class="editorial-note absolute -bottom-6 -right-4 sm:-bottom-8 sm:-right-8 max-w-[210px] transform rotate-[1.5deg]">
                             <div class="font-serif text-3xl text-royal font-normal leading-none mb-1">8+</div>
                             <div class="text-[0.68rem] tracking-widest uppercase font-semibold text-muted leading-tight">Anos de Foco<br>Previdenciário</div>
@@ -685,19 +741,19 @@
                     </div>
                 </div>
 
-                <!-- Conteúdo Institucional -->
+
                 <div>
                     <span class="eyebrow mb-3 block">Sobre Nós</span>
                     <h2 class="text-3xl sm:text-4xl font-serif text-ink mb-6">Compromisso com o seu Direito</h2>
-                    
+
                     <p class="text-muted text-base leading-relaxed mb-5 font-normal">
                         Sabemos que lidar com o INSS pode ser frustrante e desgastante. Por isso, nosso atendimento é pessoal e direto. Você tem acesso à nossa equipe em todas as etapas do seu caso, do primeiro contato até o benefício aprovado.
                     </p>
                     <p class="text-muted text-base leading-relaxed mb-8 font-normal">
                         Aqui cada cliente é tratado com atenção individual, pois acreditamos que por trás de cada processo existe uma história que merece ser ouvida e um direito que merece ser defendido.
                     </p>
-                    
-                    <!-- Pilares de Atuação -->
+
+
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-8">
                         <div class="p-3.5 bg-card border border-line rounded-sm flex items-center gap-3">
                             <i class="fas fa-check-circle text-cobalt text-base"></i>
@@ -716,7 +772,7 @@
                             <span class="font-medium text-ink text-sm">Foco em Resultados</span>
                         </div>
                     </div>
-                    
+
                     <a href="#agendamento" class="secondary-button">
                         Conheça nossa equipe <i class="fas fa-arrow-right ml-2 text-xs"></i>
                     </a>
@@ -725,13 +781,13 @@
         </div>
     </section>
 
-    <!-- FAQ / Dúvidas Frequentes -->
+
     <section class="py-24 sm:py-28 bg-paper2 border-t border-line">
         <div class="max-w-[1200px] mx-auto px-6 sm:px-8">
             <div class="text-center max-w-xl mx-auto mb-14">
                 <h2 class="text-3xl sm:text-4xl font-serif text-ink mb-3">Dúvidas Frequentes</h2>
             </div>
-            
+
             <div class="faq-wrap">
                 <details class="faq-item group">
                     <summary>
@@ -786,14 +842,16 @@
         </div>
     </section>
 
-    <!-- Rodapé Editorial -->
+
+    </main>
+
     <footer class="bg-navy text-white pt-20 pb-12 border-t border-royal">
         <div class="max-w-[1200px] mx-auto px-6 sm:px-8">
             <div class="grid md:grid-cols-3 gap-12 lg:gap-16 mb-16">
-                <!-- Coluna 1: Marca e Redes -->
+
                 <div>
                     <a href="#inicio" class="flex items-center space-x-4 mb-6 inline-block">
-                        <img src="Logo_site.png" alt="Blumck Advocacia" class="h-14 w-auto brightness-0 invert opacity-90">
+                        <img src="Logo_site.png" alt="Blumck Advocacia" width="1000" height="500" loading="lazy" decoding="async" class="h-14 w-auto brightness-0 invert opacity-90">
                     </a>
                     <p class="text-white/70 text-sm leading-relaxed max-w-sm mb-6">
                         Advocacia previdenciária especializada, com atendimento humanizado e atuação em todo o Brasil.
@@ -808,7 +866,7 @@
                     </div>
                 </div>
 
-                <!-- Coluna 2: Contato e Localização -->
+
                 <div>
                     <h4 class="font-sans text-xs tracking-widest uppercase font-semibold text-sky mb-6">Atendimento</h4>
                     <ul class="space-y-4 text-white/75 text-sm">
@@ -823,7 +881,7 @@
                     </ul>
                 </div>
 
-                <!-- Coluna 3: Navegação -->
+
                 <div>
                     <h4 class="font-sans text-xs tracking-widest uppercase font-semibold text-sky mb-6">Navegação</h4>
                     <ul class="space-y-3 text-white/75 text-sm">
@@ -835,7 +893,7 @@
                 </div>
             </div>
 
-            <!-- Sub-rodapé -->
+
             <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-white/50 text-xs">
                 <p>&copy; 2026 Blumck Advocacia. Todos os direitos reservados. OAB-GO 58.619</p>
                 <p>Desenvolvido com foco em Resultados | Zentry Media.</p>
@@ -843,7 +901,7 @@
         </div>
     </footer>
 
-    <!-- WhatsApp Floating Button -->
+
     <a href="https://wa.me/5562982370184" class="wa-float-btn" aria-label="WhatsApp">
         <i class="fab fa-whatsapp text-2xl"></i>
     </a>
